@@ -5,41 +5,16 @@
     </head>
     <body>
         <div id="app">
-            <h1>{{message}}</h1>
-            <p> LuckyNumber : {{LuckyNumber}}</p>
-            <p> {{LuckyNumber}} is an {{LuckyNumber%2==0?"even number":"odd number"}}</p>
-            <p> Assignment of putting message in uppercase: {{getmessage()}}</p>
-            <p> His salary is: {{employee.salary}}</p>
-            <p>{{updatevalues()}}</p>
-            
-         </div>
+            <div style ="background-color: aqua;">
+                <h1><u>Hello World</u></h1>
+            </div>
+        </div>
     </body>
     <script>
         const {createApp,ref, reactive } = Vue;
         createApp({
             setup(){
-                const message = "Hello Vue3!";
-                let LuckyNumber = ref(7);
-                let employee = reactive({
-                    name: "john",
-                    age: 30,
-                    salary: 300000
-                });
-
-
-                function getmessage(){
-                    return message.toUpperCase()
-                }
-                function updatevalues(){
-                    setTimeout(() => {
-                        LuckyNumber.value = 77;
-                        employee.salary = 79999;
-                    },2000)
-                }
-
-                return{
-                    message, LuckyNumber, employee, getmessage, updatevalues
-                };
+                return{};
             }
         }).mount('#app');
     </script>
