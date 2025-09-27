@@ -5,17 +5,87 @@
     </head>
     <body>
         <div id="app">
-            <div style ="background-color: aqua;">
-                <h1><u>Hello World</u></h1>
+            <div :style ="{backgroundColor: 'aqua', fontSize: fontsizeTemp +'px'}">
+                Hello World
             </div>
+            <div :style ="{'background-color': 'red','font-size':'40px'}" >
+                Hello World
+            </div>
+            
+            <br><br>
+            
+            <span class="padding-medium" :class="{h1:isMaintitle(),'bg-green':HasGreenBackground()}">
+                Random
+            </span>
+            
+            <br><br>
+            <span class="padding-medium" :class="isMaintitle()? Maintitle: ''">
+                Random
+            </span>
+
+            <br><br>
+            <span :style="someStyle.style1">
+                Random style binding
+            </span>
         </div>
     </body>
     <script>
         const {createApp,ref, reactive } = Vue;
+        
+        const fontsizeTemp=40;
         createApp({
-            setup(){
-                return{};
+            setup(){          
+                
+                const Maintitle={
+                    h1:true,
+                    "bg-grey":true
+                };
+
+                const someStyle ={
+                    style1:{
+                    fontSize: "40px",
+                    backgroundColor:"lightgreen",
+                    margin: "20px",
+                    border: "1px solid black",
+                    }
+                }
+
+                
+
+                function isMaintitle(){
+                    return true;
+                }
+                function HasGreenBackground(){
+                    return true;
+                }
+
+                return{
+                    fontsizeTemp, 
+                    isMaintitle, 
+                    HasGreenBackground,
+                    Maintitle,
+                    someStyle,
+                };
             }
         }).mount('#app');
     </script>
+    <style>
+        .h1{
+            font-size: 50px;
+            color: green;
+        }
+        .h2{
+            font-size: 40px;
+            color: chocolate;
+        }
+        .bg-grey{
+            background-color: grey;
+        }
+        .bg-green{
+            background-color: greenyellow;
+        }
+        .padding-medium{
+            padding: 20px;
+        }
+    </style>
 </html>
