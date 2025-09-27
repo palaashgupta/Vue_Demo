@@ -5,28 +5,46 @@
     </head>
     <body>
         <div id="app">
-            <div>
-            <input type="text" v-on:keyup.enter ="buttonClicked('Vue is exciting!')">
-            <button v-on:click.stop="buttonClicked('Vue is exciting!')">Click Me</button>
-
-            </div>
+            <div>Learn Vue</div>
+            <p>{{counter}}</p>
+            <p>{{getFullname}}</p>
+            <button v-on:click="counter++"> Increment</button>
+            <button v-on:click="counter--"> Decrement</button>
+            <br>
+            First Name:
+            <input type="text" v-model="firstname">
+            
+           
         </div>
     </body>
     <script>
-        const {createApp,ref, reactive } = Vue;
-        
+        const {createApp,ref, reactive, computed, watch } = Vue;
+        const name =ref('ben');
+        const age = ref(20);
         createApp({
-            setup(){          
-                function buttonClicked(newmessage){
-                    alert(newmessage)
-                }
+            setup(){
+                
+                let counter = ref(0);
+                let firstname =ref('ben');
+                let lastname = ref('patel');
 
-                function pressEnter(){
-                    alert('Enter Key pressed')
-                }
+                watch(()=> counter.value,(newValue,oldValue)=> {
+                    console.log("Counter value changed from",oldValue," to ", newValue);
+                    if(newValue == 5){
+                        alert("Counter value is 5");
+                    }
+                })
 
-                return{
-                    buttonClicked, pressEnter
+                const getFullname= computed((previous)=>{
+                    console.log('previous value',previous);
+                    return firstname.value + " " + lastname.value
+                });
+                
+                return {
+                    counter,
+                    getFullname,
+                    firstname,
+                    lastname,
                 };
             }
         }).mount('#app');
