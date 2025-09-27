@@ -9,102 +9,125 @@
     </head>
     <body>
         <div id="app" class="container">
+            <form v-on:submit.prevent="handleSubmit">
             <div class ="bg-info p-5 rounded m-5">
                 <div class ="h2 text-center">
-                    Learn Vue - MovieOPedia
+                    Learn Vue - Form
                 </div>
                 <hr />
-                <div class="input-group mb-3">
-                    <span class = "input-group-text">Title</span>
-                    <input type="text" class ="form-control" v-model="newmovie.title">
-                </div>
-                <div class="input-group mb-3">
-                    <span class = "input-group-text">Year</span>
-                    <input type="text" class ="form-control" v-model="newmovie.year">
-                </div>
-                <div class ="text-center pb-3">
-                    <button class="btn btn-secondary m-2 w-25" @click="AddMovie()">
-                        Submit Movie
-                    </button>
-                    <button class="btn btn-danger m-2 w-25" @click="DeleteMovie()">
-                        Remove Movie
-                    </button>
-                </div>
-                <div class="border p-3 w-25 mx-auto">
-                    <div class="text-center">
-                        <h4 class="text-center">
-                            Movie List
-                        </h4>
-                        <span class="text-danger" v-if="showmessage">
-                            You can only add 5 movies
-                        </span>
-                        <hr />
-                    </div>
-                    <ul class="list-group">
-                        <li v-for="movie in getAllMovieText" class="list-group-item">
-                            {{movie}}
-
+                <div>
+                    <ul>
+                        <li v-for="error in errorList" class="text-danger">
+                            {{error}}
                         </li>
                     </ul>
-
                 </div>
+                <div class="input-group mt-3">
+                    <span class = "input-group-text">Email</span>
+                    <input type="text" class ="form-control"  v-model.trim="formobj.email" >
+                </div>
+                <div class="input-group mt-3">
+                    <span class = "input-group-text">Name</span>
+                    <input type="text" class ="form-control" v-on:blur="validateName()" v-model.trim="formobj.name" >
+                </div>
+                <div v-if="!formobj.isNameValid" class="text-danger">Name should be atleast 3 character long.</div>
+                <div class="input-group mt-3">
+                    <span class = "input-group-text">Phone Number</span>
+                    <input type="number" class ="form-control" v-model.number="formobj.phone" >
+                </div>
+                <br>
+                <div class="border pt-1">
+                    <label class="form-label">Gender</label><br>
+                    <div class="form-check form-check-inline">
+                        <input class="form-check-input" type="radio" v-model="formobj.gender" 
+                        value="male" name="inlineRadioOptions">Male</input>
+                    </div>
+                    <div class="form-check form-check-inline">
+                        <input class="form-check-input" type="radio" v-model="formobj.gender" 
+                        value="female" name="inlineRadioOptions">Female</input>
+                    </div>
+                    <div class="form-check form-check-inline">
+                        <input class="form-check-input" type="radio" v-model="formobj.gender" 
+                        value="other" name="inlineRadioOptions">Other</input>
+                    </div>
+                    <div class="form-check form-check-inline">
+                        <input class="form-check-input" type="radio" v-model="formobj.gender" 
+                        value="prefer_not_to_say" name="inlineRadioOptions">Prefer Not To Say</input>
+                    </div>
+                    <br/>
+                    <hr>
+                    <select id="gender" v-model="formobj.gender" class="form-select">
+                        <option value="male">Male</option>
+                        <option value="female">Female</option>
+                        <option value="other">Other</option>
+                        <option value="prefer_not_to_say">Prefer Not To Say</option>
+                    </select>
+                    <br>
+                </div>
+                <div class="input-group mt-3">
+                    <input type="checkbox" class ="form-check-input" v-model="formobj.subscribe" >
+                    <label class="form-check-label">&nbsp; Subscribe to Newsletter</label>
+                </div>
+                
+                
+                <div class ="text-center pt-3">
+                    <button class="btn btn-success m-2 w-50">
+                        Submit 
+                    </button>
+                </div>
+              
             </div>
-            
+            </form>
         </div>
     </body>
     <script>
         const {createApp,ref, reactive, computed, watch } = Vue;
         createApp({
             setup(){
-                let movies = reactive([
-                    {title: "Movie 1", year: 2000},
-                    {title: "Movie 2", year: 2001},
-                    {title: "Movie 3", year: 2002},
-                ]);
+                const formobj= reactive({
+                    email: "",
+                    name:"",
+                    phone:"",
+                    subscribe:false,
+                    gender:"male",
+                    isNameValid:true,
+                });
+                
+                const errorList=reactive([]);
 
-                let newmovie = reactive({title:"", year:""});
-                let showmessage =ref(false);
 
-                function AddMovie(){
-                    if(movies.length<5){
-                    movies.push({...newmovie});
-                    newmovie.title="";
-                    newmovie.year="";
-                    return {
-                        newmovie,movies
-                    }}
+                function handleSubmit(){
+                    errorList.length=0;
+                    if(formobj.name.length<=3){
+                        errorList.push("Name should be at least 3 character long!")
+                    }
+                    if(formobj.email==""){
+                        errorList.push("Email should not be empty!")
+                    }
+                    if(formobj.phone==""){
+                        errorList.push("Phone number cannot be empty!")
+                    }
+                    
+                    console.log(formobj);
+                    if(!errorList.length){
+                        alert("Form Submitted successfully!")
+                    }
                 }
                 
-                function DeleteMovie(){
-                    movies.pop();
-                    return {
-                        newmovie,movies
+                function validateName(){
+                    if(formobj.name.length<=3){
+                        formobj.isNameValid=false;
+                    }
+                    else {
+                        formobj.isNameValid=true;
                     }
                 }
 
-                const getAllMovieText=computed(()=>{
-                    return movies.map((movie)=>{
-                        return `${movie.title} was released in ${movie.year}`;
-                    })});
-                
-                watch(movies,async ()=>{
-                    if(movies.length>=3){
-                        setTimeout(()=>{
-                            showmessage.value=true;
-                        },3000);
-                        
-                    } else {
-                        showmessage.value=false;
-                    }
-                })
-                       
                 return {
-                    movies,
-                    newmovie,
-                    AddMovie,
-                    DeleteMovie,
-                    getAllMovieText,
-                    showmessage
+                    formobj,
+                    handleSubmit,
+                    validateName,
+                    errorList
                 };
             }
         }).mount('#app');
