@@ -39,6 +39,7 @@ const router = createRouter({
         {path:"/:catchAll(.*)",component:NotFound},
         
     ],
+    linkActiveClass:"active btn btn-secondary",
 });
 
 
