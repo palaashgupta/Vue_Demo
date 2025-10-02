@@ -1,0 +1,46 @@
+{
+  "destination": [
+    {
+      "id": 1,
+      "name": "Bangkok",
+      "days": 7,
+      "funfact": "Bangkok is known as the 'City of Angels' in Thai.",
+      "price": 1000
+    },
+    {
+      "id": 2,
+      "name": "Tokyo",
+      "days": 5,
+      "funfact": "Tokyo has the busiest train station in the world: Shinjuku Station.",
+      "price": 1500
+    },
+    {
+      "id": 3,
+      "name": "Paris",
+      "days": 6,
+      "funfact": "The Eiffel Tower was originally meant to be a temporary structure.",
+      "price": 1800
+    },
+    {
+      "id": 4,
+      "name": "New York",
+      "days": 4,
+      "funfact": "Times Square was once called Longacre Square until 1904.",
+      "price": 1700
+    },
+    {
+      "id": 5,
+      "name": "Sydney",
+      "days": 8,
+      "funfact": "Sydney Opera House took 14 years to build.",
+      "price": 2000
+    },
+    {
+      "id": 6,
+      "name": "Cairo",
+      "days": 7,
+      "funfact": "Cairo is home to the only surviving ancient wonder: The Great Pyramid of Giza.",
+      "price": 1200
+    }
+  ]
+}
