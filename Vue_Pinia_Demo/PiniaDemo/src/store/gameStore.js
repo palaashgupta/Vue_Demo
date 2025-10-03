@@ -1,36 +1,37 @@
 import { defineStore } from "pinia";
+import { ref,computed } from "vue";
 
 
-export const useGameStore=defineStore("gameStore",{
-    state:()=> ({
-        score:0,
-        maxHealth:100,
-        maxAttack:30,
-        maxDefence:10,
-    }),
-    getters:{
-        getScore(){
-            return this.score;
-        },
-        getWinningScore(){
-            return this.maxHealth;
-        }
-    },
-    actions:{
-         setNextAttack(){
-            console.log('getNectAttack');
-            let attack = Math.floor(Math.random()*this.maxAttack)+1;
-            console.log("attack:",attack)
-            this.score += attack;
-        },
-        setNextDefense(){
-            console.log('getNextAttack');
-            let defence = Math.floor(Math.random()* this.maxDefence)+1;
-            console.log("Defence:",defence)
-            this.score -= defence;
-        },
-        resetScore(){
-            this.score =0;
-        }
+export const useGameStore=defineStore("gameStore",()=>{
+    
+    const score = ref(0);
+    const maxHealth=ref(100);
+    const maxAttack = ref(30);
+    const maxDefence = ref(10);
+
+
+    const getScore = computed(()=> score.value);
+        
+    const getWinningScore = computed(()=>maxHealth.value);
+    
+    const setNextAttack=()=>{
+    console.log('getNectAttack');
+    let attack = Math.floor(Math.random()*maxAttack.value)+1;
+    console.log("attack:",attack)
+    score.value += attack;
+    };
+    const setNextDefense=()=>{
+        console.log('getNextAttack');
+        let defence = Math.floor(Math.random()* maxDefence.value)+1;
+        console.log("Defence:",defence)
+        score.value -= defence;
+    };
+    const resetScore=()=>{
+        score.value =0;
+    };
+    return{
+        score,maxAttack,maxDefence,maxHealth,
+        getScore,getWinningScore, setNextAttack, setNextDefense, resetScore
     }
-});
+    }
+);
