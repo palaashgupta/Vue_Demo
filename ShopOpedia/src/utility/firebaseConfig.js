@@ -7,7 +7,7 @@ import { getAuth } from  'firebase/auth';
 
 // Your web app's Firebase configuration
 const firebaseConfig = {
-  apiKey: "AIzaSyD5nr-kO4kPfA9qhHxG6TTGify6EC1KD30",
+  apiKey: "#####",
   authDomain: "shopopedia-1bfbd.firebaseapp.com",
   projectId: "shopopedia-1bfbd",
   storageBucket: "shopopedia-1bfbd.firebasestorage.app",
