@@ -3,7 +3,7 @@ export const uploadToCloudinary = async (file)=>{
     formData.append('file',file)
     formData.append('upload_preset','Free Public Upload')
     try{
-        const response = await fetch('https://api.cloudinary.com/v1_1/djuxtnywp/image/upload',{
+        const response = await fetch('https://api.cloudinary.com/v1_1/####/image/upload',{
             method: 'POST',
             body: formData,
         })
